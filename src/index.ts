@@ -5,10 +5,7 @@ export function setup() {
     const it = glob.it;
     glob.it = function (name: string, fn: () => void) {
         return it(name, function (done: MochaDone) {
-            run(() => {
-                fn();
-                done();
-            }).catch(console.error);
+            run(() => fn()).then(done, done);
         });
     }
 }
