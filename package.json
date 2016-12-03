@@ -1,0 +1,30 @@
+{
+  "name": "f-mocha",
+  "description": "Mocha wrapper for f-promise",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Sage/f-mocha.git"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "f-promise": "^1.0.4"
+  },
+  "author": "Bruno Jouhier",
+  "main": "build/index.js",
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.33",
+    "@types/node": "0.0.2",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "typescript": "^2.0.10"
+  },
+  "scripts": {
+    "prepublish": "rm -r build; node_modules/typescript/bin/tsc",
+    "test": "node_modules/mocha/bin/mocha build/test"
+  }
+}

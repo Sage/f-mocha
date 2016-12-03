@@ -1,0 +1,10 @@
+{
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "build": false
+    },
+    "search.exclude": {
+        "build": true
+    },
+    "typescript.tsdk": "./node_modules/typescript/lib"
+}
