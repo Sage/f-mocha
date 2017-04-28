@@ -12,7 +12,8 @@ function wrapWithRun(_fn: Function) {
     }
 }
 export function setup() {
-    function patchFn(fnName: string, keep: string[] = []) {
+    function patchFn(fnName: string, keep?: string[]) {
+        keep = keep || [];
         const _fn = glob[fnName];
         if (_fn.wrapped) return;
         glob[fnName] = wrapWithRun(_fn);
