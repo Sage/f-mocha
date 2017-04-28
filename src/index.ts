@@ -1,13 +1,21 @@
 import { run } from 'f-promise';
 
+
+
 export function setup() {
-    const glob = global as any;
-    const it = glob.it;
-    if (it.wrapped) return;
-    glob.it = function (name: string, fn: () => void) {
-        return it(name, function (done: MochaDone) {
-            run(() => fn()).then(done, done);
-        });
+    function patchFn(fnName: string) {
+        const _fn = glob[fnName];
+        if (_fn.wrapped) return;
+        glob[fnName] = function (name: string, fn: () => void) {
+            return _fn(name, function (done: MochaDone) {
+                run(() => fn()).then(done, done);
+            });
+        }
+        glob[fnName].wrapped = true;
     }
-    glob.it.wrapped = true;
+
+    const glob = global as any;
+    patchFn('it');
+    patchFn('before');
+    patchFn('beforeEach');
 }
