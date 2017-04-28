@@ -13,6 +13,9 @@ describe("basic test", () => {
         wait(cb => setTimeout(cb, 0));
         assert(true, 'got true after wait');
     });
+    it.skip('skip', () => {
+        assert(true, "not executed because of skip");
+    });
 });
 
 describe("basic test on before", () => {
