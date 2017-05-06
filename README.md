@@ -24,3 +24,8 @@ setup();
 
 Now you can write your tests as if they were all synchronous. 
 See [this unit test](test/basic-test.ts) for an example.
+
+## License
+
+MIT.
+
