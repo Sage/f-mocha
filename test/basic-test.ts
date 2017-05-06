@@ -1,6 +1,6 @@
-import {assert} from 'chai';
-import {wait} from 'f-promise';
-import {setup} from '..';
+import { assert } from 'chai';
+import { wait } from 'f-promise';
+import { setup } from '..';
 
 setup();
 

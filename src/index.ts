@@ -1,23 +1,23 @@
 import { run } from 'f-promise';
 
 
-function wrapWithRun(_fn: Function) {
-    return function (name: string, fn: () => void) {
-        if (!fn) {
-            return _fn(name);
+function wrapWithRun(fn: Function) {
+    return function (name: string, body: () => void) {
+        if (!body) {
+            return fn(name);
         }
-        return _fn(name, function (done: MochaDone) {
-            run(() => fn()).then(done, done);
+        return fn(name, function (done: MochaDone) {
+            run(() => body()).then(done, done);
         });
     }
 }
 export function setup() {
-    function patchFn(fnName: string, keep?: string[]) {
-        keep = keep || [];
+    function patchFn(fnName: string, subNames?: string[]) {
+        subNames = subNames || [];
         const _fn = glob[fnName];
         if (_fn.wrapped) return;
         glob[fnName] = wrapWithRun(_fn);
-        keep.forEach((subFnName) => {
+        subNames.forEach((subFnName) => {
             glob[fnName][subFnName] = wrapWithRun(_fn[subFnName]);
         });
         glob[fnName].wrapped = true;
