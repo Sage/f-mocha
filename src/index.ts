@@ -1,24 +1,51 @@
 import { run } from 'f-promise';
+import { IHookCallbackContext } from 'mocha';
 
+export type MochaBody = (this: IHookCallbackContext) => void;
 
-function wrapWithRun(fn: Function) {
-    return function (name: string, body: () => void) {
-        if (!body) {
-            return fn(name);
+function wrapWithRun(body: MochaBody){
+    return function (this: IHookCallbackContext, done: MochaDone) {
+        function doneErr(err: any) {
+            if (err && err instanceof Error) {
+                done(err);
+            } else {
+                done();
+            }
         }
-        return fn(name, function (done: MochaDone) {
-            run(() => body()).then(done, done);
-        });
+        // check done is called only when declared (normal mocha behaviour)
+        if (body.length === 0) {
+            run(() => {
+                return body.call(this);
+            }).then(doneErr, done);
+        } else {
+            run(() => {
+                return body.call(this, doneErr);
+            });
+        }
+    };
+}
+
+function overrideFn(fn: Function) {
+    return function (name: string | MochaBody, body?: MochaBody) {
+        if (!body) {
+            if (typeof name === 'string') {
+                return fn(name);
+            } else if (typeof name === 'function') {
+                return fn(wrapWithRun(name));
+            }
+        }
+        return fn(name, wrapWithRun(body));
     }
 }
+
 export function setup() {
     function patchFn(fnName: string, subNames?: string[]) {
         subNames = subNames || [];
         const _fn = glob[fnName];
         if (_fn.wrapped) return;
-        glob[fnName] = wrapWithRun(_fn);
+        glob[fnName] = overrideFn(_fn);
         subNames.forEach((subFnName) => {
-            glob[fnName][subFnName] = wrapWithRun(_fn[subFnName]);
+            glob[fnName][subFnName] = overrideFn(_fn[subFnName]);
         });
         glob[fnName].wrapped = true;
     }
@@ -27,4 +54,6 @@ export function setup() {
     patchFn('it', [ 'only', 'skip']);
     patchFn('before');
     patchFn('beforeEach');
+    patchFn('after');
+    patchFn('afterEach');
 }
