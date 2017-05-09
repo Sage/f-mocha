@@ -91,7 +91,8 @@ describe("basic test on beforeEach", () => {
 
     describe("async test without string prefix", () => {
         let expected: boolean;
-        beforeEach(() => {
+        beforeEach(function () {
+            this.timeout(20000);
             assert(true, 'got false before wait');
             wait(cb => setTimeout(cb, 0));
             assert(true, 'got true after wait');
