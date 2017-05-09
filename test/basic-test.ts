@@ -108,4 +108,35 @@ describe("basic test on beforeEach", () => {
             assert(expected, 'got expected value set in before');
         });
     });
+
+    describe("async test with done parameter called too soon", () => {
+        let expected: boolean;
+        beforeEach(function (done) {
+            done();
+            wait(() => setTimeout(() => {
+                expected = true;
+            }, 1000));
+        });
+
+        it('check expected value set in beforeEach', (done) => {
+            assert(!expected, 'got expected value set in before');
+            done();
+        });
+    });
+
+    describe("async test with done parameter called in time", () => {
+        let expected: boolean;
+        beforeEach(function (done) {
+            assert(true, 'got true after wait');
+
+            setTimeout(() => {
+                expected = true;
+                done();
+            }, 1000);
+        });
+
+        it('check expected value set in beforeEach', () => {
+            assert(expected, 'got expected value set in before');
+        });
+    });
 });

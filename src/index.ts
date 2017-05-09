@@ -5,9 +5,23 @@ export type MochaBody = (this: IHookCallbackContext) => void;
 
 function wrapWithRun(body: MochaBody){
     return function (this: IHookCallbackContext, done: MochaDone) {
-        run(() => {
-            return body.apply(this);
-        }).then(done, done);
+        function doneErr(err: any) {
+            if (err && err instanceof Error) {
+                done(err);
+            } else {
+                done();
+            }
+        }
+        // check done is called only when declared (normal mocha behaviour)
+        if (body.length === 0) {
+            run(() => {
+                return body.call(this);
+            }).then(doneErr, done);
+        } else {
+            run(() => {
+                return body.call(this, doneErr);
+            });
+        }
     };
 }
 
