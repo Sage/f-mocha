@@ -4,7 +4,13 @@ import { run } from 'f-promise';
 function wrapWithRun(fn: Function) {
     return function (name: string, body: () => void) {
         if (!body) {
-            return fn(name);
+            if (typeof name === 'string') {
+                return fn(name);
+            } else if (typeof name === 'function') {
+                return fn(function (done: MochaDone) {
+                    run(() => name()).then(done, done);
+                });
+            }
         }
         return fn(name, function (done: MochaDone) {
             run(() => body()).then(done, done);
@@ -27,4 +33,6 @@ export function setup() {
     patchFn('it', [ 'only', 'skip']);
     patchFn('before');
     patchFn('beforeEach');
+    patchFn('after');
+    patchFn('afterEach');
 }
