@@ -3,7 +3,7 @@ import { IHookCallbackContext } from 'mocha';
 
 export type MochaBody = (this: IHookCallbackContext) => void;
 
-function wrapWithRun(body: MochaBody){
+function wrapWithRun(body: MochaBody) {
     return function (this: IHookCallbackContext, done: MochaDone) {
         function doneErr(err: any) {
             if (err && err instanceof Error) {
@@ -30,7 +30,7 @@ function overrideFn(fn: Function) {
         if (!body) {
             if (typeof name === 'string') {
                 return fn(name);
-            } else if (typeof name === 'function') {
+            } else {
                 return fn(wrapWithRun(name));
             }
         }
@@ -51,7 +51,7 @@ export function setup() {
     }
 
     const glob = global as any;
-    patchFn('it', [ 'only', 'skip']);
+    patchFn('it', ['only', 'skip']);
     patchFn('before');
     patchFn('beforeEach');
     patchFn('after');
