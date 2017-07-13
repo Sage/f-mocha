@@ -10,7 +10,7 @@ describe('basic test', () => {
 	});
 	it('async works like sync', () => {
 		assert(true, 'got true before wait');
-		wait(cb => setTimeout(cb, 0));
+		wait<void>(cb => setTimeout(cb, 0));
 		assert(true, 'got true after wait');
 	});
 	it.skip('skip', () => {
@@ -38,7 +38,7 @@ describe('basic test on before', () => {
 		let expected: boolean;
 		before('init expected value', () => {
 			assert(true, 'got false before wait');
-			wait(cb => setTimeout(cb, 0));
+			wait<void>(cb => setTimeout(cb, 0));
 			assert(true, 'got true after wait');
 			expected = true;
 		});
@@ -74,7 +74,7 @@ describe('basic test on beforeEach', () => {
 		let expected: boolean;
 		beforeEach('init expected value', () => {
 			assert(true, 'got false before wait');
-			wait(cb => setTimeout(cb, 0));
+			wait<void>(cb => setTimeout(cb, 0));
 			assert(true, 'got true after wait');
 			expected = true;
 		});
@@ -94,7 +94,7 @@ describe('basic test on beforeEach', () => {
 		beforeEach(function () {
 			this.timeout(20000);
 			assert(true, 'got false before wait');
-			wait(cb => setTimeout(cb, 0));
+			wait<void>(cb => setTimeout(cb, 0));
 			assert(true, 'got true after wait');
 			expected = true;
 		});
@@ -113,7 +113,7 @@ describe('basic test on beforeEach', () => {
 		let expected: boolean;
 		beforeEach(function (done) {
 			done();
-			wait(() => setTimeout(() => {
+			wait<void>(() => setTimeout(() => {
 				expected = true;
 			}, 1000));
 		});

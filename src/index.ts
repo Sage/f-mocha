@@ -16,11 +16,11 @@ function wrapWithRun(body: MochaBody) {
 		if (body.length === 0) {
 			run(() => {
 				return body.call(this);
-			}).then(doneErr, done);
+			}).then(doneErr).catch(done);
 		} else {
 			run(() => {
 				return body.call(this, doneErr);
-			});
+			}).catch(err => { throw new Error('run failed'); });
 		}
 	};
 }
