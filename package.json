@@ -8,7 +8,7 @@
     "url": "git://github.com/Sage/f-mocha.git"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "dependencies": {
     "f-promise": "^1.0.4"
@@ -24,8 +24,8 @@
     "typescript": "^2.0.10"
   },
   "scripts": {
-    "prepublish": "rm -r build; node_modules/typescript/bin/tsc",
-    "test": "node_modules/mocha/bin/mocha build/test",
+    "prepare": "rm -r build; tsc",
+    "test": "mocha build/test",
     "lint": "tslint -e 'node_modules/**' -p ."
   }
 }
