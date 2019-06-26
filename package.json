@@ -8,10 +8,10 @@
         "url": "git://github.com/Sage/f-mocha.git"
     },
     "engines": {
-        "node": ">=6.0.0"
+        "node": ">=8.0.0"
     },
     "dependencies": {
-        "f-promise": "^1.3.6"
+        "f-promise": "^2.0.3"
     },
     "author": "Bruno Jouhier",
     "main": "build/index.js",
@@ -20,7 +20,7 @@
         "@types/mocha": "^2.2.33",
         "@types/node": "0.0.2",
         "chai": "^3.5.0",
-        "mocha": "^3.2.0",
+        "mocha": "^6.1.4",
         "typescript": "^2.9.2"
     },
     "scripts": {
