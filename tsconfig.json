@@ -10,8 +10,5 @@
         "strictNullChecks": false,
         "experimentalDecorators": true
     },
-    "exclude": [
-        "node_modules",
-        "buildout"
-    ]
+    "exclude": ["node_modules", "buildout"]
 }

@@ -1,7 +1,8 @@
 {
     "editor.formatOnSave": true,
     "files.exclude": {
-        "build": false
+        "node_modules": true,
+        "build": true
     },
     "search.exclude": {
         "build": true
