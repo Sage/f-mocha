@@ -21,6 +21,7 @@
         "@types/node": "0.0.2",
         "chai": "^3.5.0",
         "mocha": "^6.1.4",
+        "tslint": "^5.18.0",
         "typescript": "^2.9.2"
     },
     "scripts": {
