@@ -13,13 +13,10 @@ npm install --save-dev f-mocha
 
 ## Usage
 
-Add the following lines at the top of your unit test files to enable the wrapper:
+Just run Mocha with the following argument
 
 ```js
-import { setup } from 'f-mocha';
-
-// this call activates the wrapper.
-setup();
+mocha --ui f-mocha
 ```
 
 Now you can write your tests as if they were all synchronous.
