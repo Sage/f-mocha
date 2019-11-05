@@ -1,7 +1,7 @@
 {
     "name": "f-mocha",
     "description": "Mocha wrapper for f-promise",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -14,11 +14,11 @@
         "f-promise": "^2.0.3"
     },
     "author": "Bruno Jouhier",
-    "main": "build/index.js",
+    "main": "build/src/index.js",
     "devDependencies": {
         "@types/chai": "^3.4.34",
-        "@types/mocha": "^2.2.33",
-        "@types/node": "0.0.2",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^10.14.9",
         "chai": "^3.5.0",
         "mocha": "^6.1.4",
         "tslint": "^5.18.0",

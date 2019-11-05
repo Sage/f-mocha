@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 import { wait } from 'f-promise';
-import { setup } from '..';
+import * as fMocha from '../src';
+import { setup } from '../src/setup';
 
 setup();
 
@@ -16,6 +17,12 @@ describe('basic test', () => {
     it.skip('skip', () => {
         assert(true, 'not executed because of skip');
     });
+
+    it('should export default the mocha UI function', () => {
+        assert(fMocha instanceof Function, 'default export should be a function');
+        assert((fMocha as Function).name === 'fMochaInterface', 'default export should be the `fMochaInterface` function');
+    });
+
 });
 
 describe('basic test on before', () => {
@@ -91,7 +98,7 @@ describe('basic test on beforeEach', () => {
 
     describe('async test without string prefix', () => {
         let expected: boolean;
-        beforeEach(function() {
+        beforeEach(function () {
             this.timeout(20000);
             assert(true, 'got false before wait');
             wait<void>(cb => setTimeout(cb, 0));
@@ -111,7 +118,7 @@ describe('basic test on beforeEach', () => {
 
     describe('async test with done parameter called too soon', () => {
         let expected: boolean;
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             done();
             wait<void>(() =>
                 setTimeout(() => {
@@ -128,7 +135,7 @@ describe('basic test on beforeEach', () => {
 
     describe('async test with done parameter called in time', () => {
         let expected: boolean;
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             assert(true, 'got true after wait');
 
             setTimeout(() => {
