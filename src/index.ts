@@ -9,3 +9,4 @@ module.exports = function fMochaInterface(suite: Mocha.Suite) {
 };
 
 module.exports.description = 'F-Mocha interface extending default BDD to add fiber support';
+module.exports.setup = setup;
